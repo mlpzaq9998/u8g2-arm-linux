@@ -16,6 +16,16 @@
 //nanopi
 #define GPIO_PIN(x)             (x)
 
+#define GPIO_FILENAME_DEFINE(pin,field) char fileName[255] = {0}; \
+        sprintf(fileName, "/sys/class/gpio/gpio%d/%s", pin, field);
+
+int writeValueToFile(char* fileName, char* buff); 
+int writeIntValueToFile(char* fileName, int value); 
+int readValueFromFile(char* fileName, char* buff, int len); 
+int readIntValueFromFile(char* fileName) ;
+
+int gpioToPin(const char* gpio);
+
 int exportGPIOPin(int pin);
 int unexportGPIOPin(int pin);
 
@@ -26,5 +36,7 @@ int getGPIODirection(int pin);
 // GPIO_LOW or GPIO_HIGH
 int setGPIOValue(int pin, int value);
 int getGPIOValue(int pin);
+
+int onled();
 
 #endif

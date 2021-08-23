@@ -1,14 +1,14 @@
 #include <U8g2lib.h>
 
 // By default, SPI bus /dev/spidev0.0 is used, as defined in port/U8g2lib.h
-#define OLED_SPI_PIN_RES            25
-#define OLED_SPI_PIN_DC             24
+#define OLED_SPI_PIN_RES            14
+#define OLED_SPI_PIN_DC             4
 
 // CS pin is controlled by linux spi driver
-#define OLED_SPI_PIN_CS             8
+#define OLED_SPI_PIN_CS             6
 
 // Check https://github.com/olikraus/u8g2/wiki/u8g2setupcpp for all supported devices
-static U8G2_SSD1306_128X64_NONAME_F_4W_HW_SPI u8g2(U8G2_R0,
+static U8G2_NT7534_TG12864R_F_4W_SW_SPI u8g2(U8G2_R2,
                                           /* cs=*/ OLED_SPI_PIN_CS,
                                           /* dc=*/ OLED_SPI_PIN_DC,
                                           /* reset=*/ OLED_SPI_PIN_RES);

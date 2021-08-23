@@ -9,12 +9,15 @@
 # NanoPi NEO Plus 2:  arm-linux-gnueabihf-gcc
 
 # C-SKY Linux:  csky-linux-gcc
-
-CC=arm-linux-gnueabi-gcc
+TOOLCHAIN_PATH = ~/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf
+CROSS_COMPILER = arm-linux-gnueabihf
+CC = $(TOOLCHAIN_PATH)/bin/$(CROSS_COMPILER)-gcc
+# CC=arm-linux-gnueabi-gcc
 
 # IP Address of your PI
 PI=pi@raspberrypi.local
 
+MARCH = armv7-a
 TARGET=u8g2_4wire_sw_spi
 IDIR= -I ../../../drivers -I ../../../csrc -I ../../../port
 SRCDIR=../../../csrc
@@ -23,7 +26,7 @@ OUTDIR=../../../bin
 LDIR= -L ../../../lib
 LIBS=  -lm
 
-CFLAGS= $(IDIR) -W -Wall
+CFLAGS= $(IDIR) -march=$(MARCH) -W -Wall
 
 OBJ+=u8g2_4wire_sw_spi.o\
 	../../../port/u8g2port.o\
@@ -142,10 +145,10 @@ directories:
 
 $(TARGET):$(OBJ)
 	@echo Generating $(TARGET) ...
-	@$(CC) -o $(OUTDIR)/$@ $(OBJ) $(LDIR) $(LIBS)
+	@$(CC) -o $(OUTDIR)/$@ $(OBJ) $(LDIR) $(LIBS) -static
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS)
+	$(CC) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS) -static
 
 clean:
 	@echo RM -rf $(OBJDIR)/

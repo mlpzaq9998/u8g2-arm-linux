@@ -10,12 +10,17 @@
 
 # C-SKY Linux:  csky-linux-gcc
 
-CC=arm-linux-gnueabi-gcc
-CXX=arm-linux-gnueabi-g++
+TOOLCHAIN_PATH = ~/gcc-linaro-4.9.4-2017.01-x86_64_arm-linux-gnueabihf
+CROSS_COMPILER = arm-linux-gnueabihf
+CC = $(TOOLCHAIN_PATH)/bin/$(CROSS_COMPILER)-gcc
+CXX = $(TOOLCHAIN_PATH)/bin/$(CROSS_COMPILER)-g++
+#CC=arm-linux-gnueabi-gcc
+#CXX=arm-linux-gnueabi-g++
 
 # IP Address of your PI
 PI=pi@raspberrypi.local
 
+MARCH = armv7-a
 TARGET=u8g2_4wire_hw_spi_cpp
 IDIR= -I ../../../drivers -I ../../../csrc -I ../../../cppsrc -I ../../../port
 CSRCDIR=../../../csrc
@@ -25,7 +30,7 @@ OUTDIR=../../../bin
 LDIR= -L ../../../lib
 LIBS=  -lm
 
-CFLAGS= $(IDIR) -W -Wall
+CFLAGS= $(IDIR) -march=$(MARCH) -W -Wall
 
 OBJ+=u8g2_4wire_hw_spi.cpp.o\
 	../../../port/u8g2port.o\
@@ -147,16 +152,16 @@ directories:
 
 $(TARGET):$(OBJ)
 	@echo Generating $(TARGET) ...
-	@$(CXX) -o $(OUTDIR)/$@ $(OBJ) $(LDIR) $(LIBS)
+	@$(CXX) -o $(OUTDIR)/$@ $(OBJ) $(LDIR) $(LIBS) -static
 
 u8g2_4wire_hw_spi.cpp.o: u8g2_4wire_hw_spi.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS)
+	$(CXX) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS) -static
 
 $(OBJDIR)/%.cpp.o: $(CXXSRCDIR)/%.cpp
-	$(CXX) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS)
+	$(CXX) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS) -static
 
 $(OBJDIR)/%.o: $(CSRCDIR)/%.c
-	$(CC) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS)
+	$(CC) -c -o $@ $< $(CFLAGS) $(LDIR) $(LIBS) -static
 
 clean:
 	@echo RM -rf $(OBJDIR)/
