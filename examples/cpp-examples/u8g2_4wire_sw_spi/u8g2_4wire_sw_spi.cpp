@@ -19,10 +19,10 @@ static U8G2_NT7534_TG12864R_F_4W_SW_SPI u8g2(U8G2_R0,\
 int main()
 {
     u8g2.begin();
-	onled();
+    onled();
     u8g2.clearBuffer();                         // clear the internal memory
     u8g2.setFont(u8g2_font_6x13_tr);            // choose a suitable font
-    u8g2.drawStr(1, 18, "U8g2 on SW SPI");   // write something to the internal memory
+    u8g2.drawStr(0, 0, "U8g2 on SW SPI");   // write something to the internal memory
     u8g2.sendBuffer();                          // transfer internal memory to the display
     u8g2.setFont(u8g2_font_unifont_t_symbols);
     u8g2.drawGlyph(112, 56, 0x2603 );
