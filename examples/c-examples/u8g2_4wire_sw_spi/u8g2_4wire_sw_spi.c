@@ -15,7 +15,7 @@ int main(void)
     u8g2_t u8g2;
 
     // Initialization
-    u8g2_Setup_nt7534_tg12864r_f(&u8g2, U8G2_R0, u8x8_byte_4wire_sw_spi, u8x8_arm_linux_gpio_and_delay);
+    u8g2_Setup_nt7534_tg12864r_f(&u8g2, U8G2_R2, u8x8_byte_4wire_sw_spi, u8x8_arm_linux_gpio_and_delay);
     u8x8_SetPin(u8g2_GetU8x8(&u8g2), U8X8_PIN_RESET, OLED_SPI_PIN_RES);
     u8x8_SetPin(u8g2_GetU8x8(&u8g2), U8X8_PIN_DC, OLED_SPI_PIN_DC);
     u8x8_SetPin(u8g2_GetU8x8(&u8g2), U8X8_PIN_SPI_DATA, OLED_SPI_PIN_MOSI);
@@ -30,12 +30,19 @@ int main(void)
     // Draw    
     /* full buffer example, setup procedure ends in _f */
     u8g2_ClearBuffer(&u8g2);
-
-    u8g2_SetFont(&u8g2, u8g2_font_6x13_tr);
-    u8g2_DrawStr(&u8g2, 1, 18, "U8g2 SW SPI");
-
-    u8g2_SetFont(&u8g2, u8g2_font_unifont_t_symbols);
-    u8g2_DrawGlyph(&u8g2, 112, 56, 0x2603 );
+    int i;
+    for(i=0;i<128;i++){
+        u8g2_DrawPixel(&u8g2, i,i); //diagonal -> dx bottom
+        u8g2_DrawPixel(&u8g2, i,127-i); //diagonal -> dx top
+        u8g2_DrawPixel(&u8g2, i,0); //line top
+        u8g2_DrawPixel(&u8g2, i,7); //line top
+        u8g2_DrawPixel(&u8g2, i,127); //line bottom
+        u8g2_DrawPixel(&u8g2, i,120); //line bottom
+        u8g2_DrawPixel(&u8g2, 0,i); //line left
+        u8g2_DrawPixel(&u8g2, 7,i); //line left
+        u8g2_DrawPixel(&u8g2, 127,i); //line right
+        u8g2_DrawPixel(&u8g2, 120,i); //line right
+    }
 
     u8g2_SendBuffer(&u8g2);
 
