@@ -739,7 +739,7 @@ static const u8x8_display_info_t u8x8_st7565_lm6059_display_info =
   /* write_pulse_width_ns = */ 80,	/* st7565 datasheet, table 24, tcclw */
   /* tile_width = */ 16,		/* width of 16*8=128 pixel */
   /* tile_hight = */ 8,
-  /* default_x_offset = */ 3,	/* not sure... */
+  /* default_x_offset = */ 1,	/* not sure... */
   /* flipmode_x_offset = */ 3,
   /* pixel_width = */ 128,
   /* pixel_height = */ 64
@@ -1128,28 +1128,15 @@ static const uint8_t u8x8_d_nt7534_tg12864r_init_seq[] = {
   U8X8_START_TRANSFER(),             	/* enable chip, delay is part of the transfer start */
   
   U8X8_C(0x0e2),            			/* soft reset */
-
-  U8X8_DLY(250),
-  
-  U8X8_C(0x0ae),		                /* display off */
-  U8X8_C(0x060),		                /* set display start line to ... */
-  
-  U8X8_C(0x0a1),		                /* ADC set to reverse */
-
-  U8X8_C(0x0c0),		                /* common output mode */
-  // Flipmode
-  //U8X8_C(0x0a1),		                /* ADC set to reverse */
-  //U8X8_C(0x0c0),		                /* common output mode */
-  
-  U8X8_C(0x0a6),		                /* display normal, bit val 0: LCD pixel off. */
-  U8X8_C(0x0a3),		                /* LCD bias 1/9 */
-  U8X8_C(0x02f),		                /* all power  control circuits on (regulator, booster and follower) */
-  U8X8_C(0x027),		                /* set V0 voltage resistor ratio to max  */
-  U8X8_CA(0x081, 0x0ff),		/* set contrast, contrast value, EA default: 0x016 */
-  
-  U8X8_C(0x0ae),		                /* display off */
-  U8X8_C(0x0a5),		                /* enter powersafe: all pixel on, issue 142 */
-  
+  U8X8_C(0x0a0),	
+  U8X8_C(0x0c8),	
+  U8X8_C(0x0a8),	
+  U8X8_C(0x0a2),	
+  U8X8_C(0x02f),
+  U8X8_C(0x027),
+  U8X8_CA(0x081, 0x035),
+  U8X8_C(0x060),
+  U8X8_C(0x0af),  
   
   U8X8_END_TRANSFER(),             	/* disable chip */
   U8X8_END()             			/* end of sequence */

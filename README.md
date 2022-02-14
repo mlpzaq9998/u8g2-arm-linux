@@ -1,15 +1,25 @@
 
 # U8g2 for arm-linux
 
-[![Build Status](https://travis-ci.com/wuhanstudio/u8g2-arm-linux.svg?branch=master)](https://travis-ci.com/wuhanstudio/u8g2-arm-linux)
+<!-- [![Build Status](https://travis-ci.com/wuhanstudio/u8g2-arm-linux.svg?branch=master)](https://travis-ci.com/wuhanstudio/u8g2-arm-linux) -->
+
+[![CircleCI](https://circleci.com/gh/wuhanstudio/u8g2-arm-linux.svg?style=svg)](https://circleci.com/gh/wuhanstudio/u8g2-arm-linux)
+
+## Quick Start
+
+```
+$ cd u8g2-arm-linux
+$ make CC=gcc CXX=g++
+$ ls bin/
+```
 
 Check wiki [here](https://github.com/wuhanstudio/u8g2-arm-linux/wiki) for set-up
 
 <!-- TOC -->
 
 - [U8g2 for arm-linux](#u8g2-for-arm-linux)
-    - [Introduction](#intro)
-    - [Todo list](#todo)
+    - [Introduction](#introduction)
+    - [Todo list](#todo-list)
     - [Gallery](#gallery)
     - [How to compile](#how-to-compile)
     - [How to run](#how-to-run)
@@ -33,8 +43,11 @@ It should work fine on virtually all devices running linux with i2c, spi support
 [●] Software SPI  
 [●] 8080 mode  
 [●] Add C++ wrapper  
-[●] Improve software GPIO speed by tracking fd  
-[ &nbsp; ] Upstream the port
+[●] Faster GPIO by tracking fd  
+[●] Better build system  
+[●] Upstream the port  
+[&nbsp; ] Replace sysfs with gpiod  
+[&nbsp; ] Benchmark
 
 ## Gallery 
 
